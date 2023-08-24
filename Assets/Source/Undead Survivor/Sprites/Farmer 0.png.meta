@@ -318,7 +318,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stand 4
+      name: Stand 3
       rect:
         serializedVersion: 2
         x: 0
@@ -402,7 +402,7 @@ TextureImporter:
       Stand 0: -126417172
       Stand 1: 346643363
       Stand 2: 1812720710
-      Stand 4: 1453980966
+      Stand 3: 1453980966
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
