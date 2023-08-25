@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
-    Vector2 inputDir;
+    public Vector2 inputDir;
     public Rigidbody2D rigid;
     public SpriteRenderer spriter;
     public Animator anim;
