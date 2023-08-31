@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Enermy : MonoBehaviour
 {
-    bool isLive = true;
+    bool isLive;
+    public Animator anim;
     public Rigidbody2D rigid;
     public SpriteRenderer spriter;
 
+    public RuntimeAnimatorController[] animatorCon;
+    public float health;
+    public float maxHealth;
     public float speed;
     public Rigidbody2D target;
 
@@ -33,5 +37,15 @@ public class Enermy : MonoBehaviour
     private void OnEnable()
     {
         target = GameManager.Instance.player.GetComponent<Rigidbody2D>();
+        isLive = true;
+        health = maxHealth;
+    }
+
+    public void Init(SpawnData data)
+    {
+        anim.runtimeAnimatorController = animatorCon[data.spriteType];
+        speed = data.speed;
+        maxHealth = data.health;
+        health = data.health;
     }
 }
