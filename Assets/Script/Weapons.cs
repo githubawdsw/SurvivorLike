@@ -9,14 +9,6 @@ public class Weapons : MonoBehaviour
     public float damage;
     public int count;
     public float speed;
-    Player player;
-
-    float timer;
-
-    private void Awake()
-    {
-        player = GetComponentInParent<Player>();
-    }
 
     private void Start()
     {
@@ -31,21 +23,13 @@ public class Weapons : MonoBehaviour
                 transform.Rotate(Vector3.back * speed * Time.deltaTime);
                 break;
             default:
-                timer += Time.deltaTime;
-
-                if (timer > speed)
-                {
-                    timer = 0f;
-                    Fire();
-                }
-
                 break;
         }
 
         // Test Code
         if (Input.GetButtonDown("Jump"))
         {
-            LevelUp(10, 1);
+            LevelUp(20, 5);
         }
     }
 
@@ -65,10 +49,7 @@ public class Weapons : MonoBehaviour
                 speed = 150f;
                 Setin();
                 break;
-            case 1:
-                break;
             default:
-                speed = 1f; 
                 break;
         }
     }
@@ -92,22 +73,7 @@ public class Weapons : MonoBehaviour
             Vector3 rotVec = Vector3.forward * 360 * i / count;
             bullet.Rotate(rotVec);
             bullet.Translate(bullet.up * 1.5f, Space.World);
-            bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero);     // -1 : Infinity Per.
+            bullet.GetComponent<Bullet>().Init(damage, -1);     // -1 : Infinity Per.
         }
-    }
-
-    void Fire()
-    {
-        if (!player.scanner.nearestTarget)
-            return;
-
-        Vector3 targetPos = player.scanner.nearestTarget.position;
-        Vector3 dir = targetPos - transform.position;
-        dir = dir.normalized;
-
-        Transform bullet = GameManager.Instance.pool.Get(prefabsId).transform;
-        bullet.position = transform.position;
-        bullet.rotation = Quaternion.FromToRotation(Vector3.up, dir);
-        bullet.GetComponent<Bullet>().Init(damage, 1, dir);     // -1 : Infinity Per.
     }
 }
