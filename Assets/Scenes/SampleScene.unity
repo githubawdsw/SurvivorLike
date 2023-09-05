@@ -5542,7 +5542,6 @@ Transform:
   - {fileID: 1862165059}
   - {fileID: 1715510740}
   - {fileID: 1529180107}
-  - {fileID: 111621847}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14245,7 +14244,6 @@ MonoBehaviour:
   prefabs:
   - {fileID: 5305314885006692617, guid: 0e5719f648cb0f141a504b372064c228, type: 3}
   - {fileID: 5497717023066848808, guid: c08f62aacd629964e9f0dd71bb2e83a6, type: 3}
-  - {fileID: 696881174043945984, guid: 32a131c43c905de44935d384db98a69a, type: 3}
 --- !u!1 &1625145527
 GameObject:
   m_ObjectHideFlags: 0
