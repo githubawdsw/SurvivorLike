@@ -65,10 +65,8 @@ public class Weapons : MonoBehaviour
                 speed = 150f;
                 Setin();
                 break;
-            case 1:
-                break;
             default:
-                speed = 1f; 
+                speed = 0.3f; 
                 break;
         }
     }

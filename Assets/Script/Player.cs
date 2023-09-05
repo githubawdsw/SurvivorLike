@@ -8,10 +8,10 @@ public class Player : MonoBehaviour
     public Vector2 inputDir;
     public float speed;
 
-    public Scanner scanner;
     public Rigidbody2D rigid;
     public SpriteRenderer spriter;
     public Animator anim;
+    public Scanner scanner;
 
     
     private void FixedUpdate()
