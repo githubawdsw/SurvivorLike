@@ -15,12 +15,7 @@ public class Weapons : MonoBehaviour
 
     private void Awake()
     {
-        player = GetComponentInParent<Player>();
-    }
-
-    private void Start()
-    {
-        Init();
+        player = GameManager.Instance.player;
     }
 
     void Update()
@@ -53,12 +48,34 @@ public class Weapons : MonoBehaviour
     {
         this.damage = damage;
         this.count += count;
+
         if (id == 0)
             Setin();
+
+        player.BroadcastMessage("ApplyGear" , SendMessageOptions.DontRequireReceiver);
     }
 
-    public void Init()
+    public void Init(Itemdata data)
     {
+        // Basic Seting
+        name = "Weapon" + (data.itemId);
+        transform.parent = player.transform;
+        transform.localPosition = Vector3.zero;
+
+        // Property Seting
+        id = data.itemId;
+        damage = data.baseDamage;
+        count = data.baseCount;
+
+        for (int index = 0; index < GameManager.Instance.pool.prefabs.Length; index++)
+        {
+            if(data.projectile == GameManager.Instance.pool.prefabs[index])
+            {
+                prefabsId = index;
+                break;
+            }
+        }
+
         switch (id)
         {
             case 0:
@@ -69,6 +86,8 @@ public class Weapons : MonoBehaviour
                 speed = 0.3f; 
                 break;
         }
+
+        player.BroadcastMessage("ApplyGear" , SendMessageOptions.DontRequireReceiver);
     }
 
     void Setin()
