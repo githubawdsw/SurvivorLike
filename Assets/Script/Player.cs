@@ -12,8 +12,13 @@ public class Player : MonoBehaviour
     public SpriteRenderer spriter;
     public Animator anim;
     public Scanner scanner;
+    public Hand[] hands;
 
-    
+    private void Awake()
+    {
+        hands = GetComponentsInChildren<Hand>(true);
+    }
+
     private void FixedUpdate()
     {
         Vector2 nextVec = inputDir * speed * Time.fixedDeltaTime;
