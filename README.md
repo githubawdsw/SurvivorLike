@@ -1,3 +1,3 @@
 # 🖥️ SurvivorLike
-*Unity
-    -Stacks : C#, Editor, Cinemachine, Timeline
+* Unity
+    - Stacks : C#, Editor, Cinemachine, Timeline
