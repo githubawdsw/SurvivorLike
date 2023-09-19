@@ -73,6 +73,8 @@ public class Enermy : MonoBehaviour
         if(health > 0)
         {
             anim.SetTrigger("Hit");
+
+            AudioManager.Instance.PlaySfx(AudioManager.Sfx.Hit);
         }
         else
         {
@@ -84,6 +86,9 @@ public class Enermy : MonoBehaviour
 
             GameManager.Instance.kill++;
             GameManager.Instance.GetExp();
+
+            if(GameManager.Instance.isLive)
+                AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dead);
         }
     }
 

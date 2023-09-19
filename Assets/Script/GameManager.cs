@@ -40,6 +40,9 @@ public class GameManager : MonoBehaviour
         player.gameObject.SetActive(true);
         uiLevelup.Select(playerId % 2);
         Resume();
+
+        AudioManager.Instance.PlayBgm(true);
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.Select);
     }
 
     public void GameOver()
@@ -55,6 +58,9 @@ public class GameManager : MonoBehaviour
         uiResult.gameObject.SetActive(true);
         uiResult.Lose();
         Stop();
+
+        AudioManager.Instance.PlayBgm(false);
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.Lose);
     }
 
 
@@ -73,6 +79,9 @@ public class GameManager : MonoBehaviour
         uiResult.gameObject.SetActive(true);
         uiResult.Win();
         Stop();
+
+        AudioManager.Instance.PlayBgm(false);
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.Win);
     }
 
     public void GameRetry()
