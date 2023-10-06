@@ -17,7 +17,7 @@ public class Enermy : MonoBehaviour
     public Rigidbody2D target;
 
     WaitForFixedUpdate wait;
-
+    float interval = 0f;
 
     private void FixedUpdate()
     {
@@ -69,8 +69,26 @@ public class Enermy : MonoBehaviour
 
         health -= collision.GetComponent<Bullet>().damage;
         StartCoroutine(KnockBack());
+        Hit();
+    }
 
-        if(health > 0)
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (!collision.CompareTag("DOT") || !isLive)
+            return;
+        interval += Time.deltaTime;
+        if(interval > 0.35f)
+        {
+            interval = 0f;
+            health -= collision.GetComponent<Bullet>().damage;
+            StartCoroutine(KnockBack());
+            Hit();
+        }
+    }
+
+    void Hit()
+    {
+        if (health > 0)
         {
             anim.SetTrigger("Hit");
 
@@ -87,7 +105,7 @@ public class Enermy : MonoBehaviour
             GameManager.Instance.kill++;
             GameManager.Instance.GetExp();
 
-            if(GameManager.Instance.isLive)
+            if (GameManager.Instance.isLive)
                 AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dead);
         }
     }

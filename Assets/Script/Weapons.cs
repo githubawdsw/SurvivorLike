@@ -28,7 +28,7 @@ public class Weapons : MonoBehaviour
             case 0:
                 transform.Rotate(Vector3.back * speed * Time.deltaTime);
                 break;
-            default:
+            case 1:
                 timer += Time.deltaTime;
 
                 if (timer > speed)
@@ -36,14 +36,9 @@ public class Weapons : MonoBehaviour
                     timer = 0f;
                     Fire();
                 }
-
                 break;
-        }
-
-        // Test Code
-        if (Input.GetButtonDown("Jump"))
-        {
-            LevelUp(10, 1);
+            default:
+                break;
         }
     }
 
@@ -85,8 +80,13 @@ public class Weapons : MonoBehaviour
                 speed = 150f * Character.WeaponSpeed;
                 Setin();
                 break;
-            default:
+            case 1:
                 speed = 0.5f * Character.WeaponRate; 
+                break;
+            case 5:
+                Setin();
+                break;
+            default:
                 break;
         }
 
@@ -113,14 +113,17 @@ public class Weapons : MonoBehaviour
             bullet.localPosition = Vector3.zero;
             bullet.localRotation = Quaternion.identity;
 
-            Vector3 rotVec = Vector3.forward * 360 * i / count;
-            bullet.Rotate(rotVec);
-            bullet.Translate(bullet.up * 1.5f, Space.World);
             bullet.GetComponent<Bullet>().Init(damage, -100, Vector3.zero);     // -100 : Infinity Per.
+            if(id == 0)
+            {
+                Vector3 rotVec = Vector3.forward * 360 * i / count;
+                bullet.Rotate(rotVec);
+                bullet.Translate(bullet.up * 1.5f, Space.World);
+            }
         }
     }
 
-    void Fire()
+    void Fire() // ¿±ÃÑ °ø°Ý
     {
         if (!player.scanner.nearestTarget)
             return;
