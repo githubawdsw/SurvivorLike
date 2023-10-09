@@ -17,7 +17,8 @@ public class Enermy : MonoBehaviour
     public Rigidbody2D target;
 
     WaitForFixedUpdate wait;
-    float interval = 0f;
+    float interval = 0.35f;
+    float delay = 0f;
 
     private void FixedUpdate()
     {
@@ -76,8 +77,8 @@ public class Enermy : MonoBehaviour
     {
         if (!collision.CompareTag("DOT") || !isLive)
             return;
-        interval += Time.deltaTime;
-        if(interval > 0.35f)
+        delay += Time.deltaTime;
+        if(delay > interval)
         {
             interval = 0f;
             health -= collision.GetComponent<Bullet>().damage;

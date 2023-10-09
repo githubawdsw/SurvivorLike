@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Weapons : MonoBehaviour
 {
-    public int id;
+    public int id;      // Scriptable Obj Id
     public int prefabsId;
     public float damage;
     public int count;
@@ -49,7 +49,8 @@ public class Weapons : MonoBehaviour
 
         if (id == 0)
             Setin();
-
+        else if (id == 5 && count == 1)
+            Setin();
         player.BroadcastMessage("ApplyGear" , SendMessageOptions.DontRequireReceiver);
     }
 
@@ -97,7 +98,7 @@ public class Weapons : MonoBehaviour
         player.BroadcastMessage("ApplyGear" , SendMessageOptions.DontRequireReceiver);
     }
 
-    void Setin()
+    void Setin() 
     {
         for (int i = 0; i < count; i++)
         {
@@ -119,6 +120,10 @@ public class Weapons : MonoBehaviour
                 Vector3 rotVec = Vector3.forward * 360 * i / count;
                 bullet.Rotate(rotVec);
                 bullet.Translate(bullet.up * 1.5f, Space.World);
+            }
+            if(id == 5)
+            {
+                bullet.localScale += new Vector3(0.03f * i, 0.03f * i, 0.03f * i);
             }
         }
     }
