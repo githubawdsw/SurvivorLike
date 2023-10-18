@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -115,7 +116,7 @@ public class GameManager : MonoBehaviour
         if (!isLive)
             return;
         exp++;
-        if (exp == nextExp[Mathf.Min(level, nextExp.Length - 1)])
+        if (exp == nextExp[Mathf.Min(level, nextExp.Length - 1)] )
         {
             level++;
             exp = 0;
@@ -135,4 +136,5 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         uiJoy.localScale = Vector3.one;
     }
+
 }

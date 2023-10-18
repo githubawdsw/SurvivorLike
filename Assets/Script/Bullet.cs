@@ -8,21 +8,21 @@ public class Bullet : MonoBehaviour
     public float damage;
     public int per;
 
+    int id;
     Rigidbody2D rigid;
 
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
     }
-    public void Init(float damage , int per , Vector3 dir)
+    public void Init(float damage , int per , Vector3 dir , int id)
     {
         this.damage = damage;
         this.per = per;
-        
+        this.id = id;
+
         if(per >= 0) 
-        {
             rigid.velocity = dir * 15f;
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -41,9 +41,10 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Area") || per == -100)
+        if (!collision.CompareTag("Area"))
             return;
 
         gameObject.SetActive(false);
     }
+
 }

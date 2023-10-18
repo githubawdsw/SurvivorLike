@@ -34,7 +34,16 @@ public class Weapons : MonoBehaviour
                 if (timer > speed)
                 {
                     timer = 0f;
-                    Fire();
+                    Fire1();
+                }
+                break;
+            case 6:
+                timer += Time.deltaTime;
+
+                if (timer > speed)
+                {
+                    timer = 0f;
+                    Fire2();
                 }
                 break;
             default:
@@ -47,10 +56,10 @@ public class Weapons : MonoBehaviour
         this.damage = damage * Character.Damage;
         this.count += count;
 
-        if (id == 0)
+        if (id == 0 || (id == 5 && count == 1))
             Setin();
-        else if (id == 5 && count == 1)
-            Setin();
+        if (id == 6)
+            transform.localScale *= count + 1;
         player.BroadcastMessage("ApplyGear" , SendMessageOptions.DontRequireReceiver);
     }
 
@@ -87,6 +96,11 @@ public class Weapons : MonoBehaviour
             case 5:
                 Setin();
                 break;
+            case 6:
+                speed = 5f;
+                Fire2();
+                break;
+
             default:
                 break;
         }
@@ -114,7 +128,7 @@ public class Weapons : MonoBehaviour
             bullet.localPosition = Vector3.zero;
             bullet.localRotation = Quaternion.identity;
 
-            bullet.GetComponent<Bullet>().Init(damage, -100, Vector3.zero);     // -100 : Infinity Per.
+            bullet.GetComponent<Bullet>().Init(damage, -100, Vector3.zero , id);     // -100 : Infinity Per.
             if(id == 0)
             {
                 Vector3 rotVec = Vector3.forward * 360 * i / count;
@@ -128,7 +142,7 @@ public class Weapons : MonoBehaviour
         }
     }
 
-    void Fire() // ¿±ÃÑ °ø°Ý
+    void Fire1() // ¿±ÃÑ °ø°Ý
     {
         if (!player.scanner.nearestTarget)
             return;
@@ -140,7 +154,33 @@ public class Weapons : MonoBehaviour
         Transform bullet = GameManager.Instance.pool.Get(prefabsId).transform;
         bullet.position = transform.position;
         bullet.rotation = Quaternion.FromToRotation(Vector3.up, dir);
-        bullet.GetComponent<Bullet>().Init(damage, 1, dir);     // -1 : Infinity Per.
+        bullet.GetComponent<Bullet>().Init(damage, 1, dir , id);
+
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.Range);
+    }
+
+    void Fire2() // Ä¿Áö´Â ¿ø°Å¸® ¹«±â
+    {
+       
+        if (!player.scanner.nearestTarget)
+            return;
+
+        Transform bullet;
+        bullet = GameManager.Instance.pool.Get(prefabsId).transform;
+        bullet.parent = transform;
+            
+
+        bullet.localPosition = Vector3.zero;
+        bullet.localRotation = Quaternion.identity;
+
+        Vector3 targetPos = player.scanner.nearestTarget.position;
+        Vector3 dir = targetPos - transform.position;
+
+        dir = dir.normalized;
+
+        bullet.GetComponent<Bullet>().Init(damage, -100, Vector3.zero, id);
+        bullet.GetComponent<BulletFixedupdate>().Init(dir, id);
+
 
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.Range);
     }
